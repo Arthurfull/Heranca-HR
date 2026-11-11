@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Entre fios e afetos | Um álbum de família</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body class="album" id="topo">
+
+    <!-- ícones (sprite) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+        <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol>
+        <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+        <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></symbol>
+        <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol>
+        <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></symbol>
+    </svg>
+
+    <!--header inicio-->
+    <header class="cabecalho">
+        <a class="marca" href="index.html">
+            <span class="aliancas" aria-hidden="true"></span>
+            <span class="marca-texto">
+                <span class="marca-nome">Entre fios e afetos</span>
+                <span class="marca-descricao">Um álbum de família</span>
+            </span>
+        </a>
+
+        <nav class="navegacao" aria-label="Seções do álbum">
+            <a href="#inicio" aria-current="page">Início</a>
+            <a href="#origem">A origem</a>
+            <a href="#atelie">Crescer no ateliê</a>
+            <a href="#oficio">O ofício</a>
+            <a href="#pecas">Peças com história</a>
+            <a href="#pessoas">As pessoas</a>
+            <a href="#hoje">Hoje</a>
+            <a href="dashboard/mural.html">Mural de histórias</a>
+        </nav>
+    </header>
+    <!--header fim-->
+
+    <main>
+
+        <!-- 01 · INÍCIO -->
+        <section class="inicio" id="inicio">
+            <div class="capa-fotografia">
+                <div class="capa-texto">
+                    <p class="eyebrow">01 / Início · Um álbum de afetos</p>
+                    <h1 class="t-hero">Onde o ouro encontra a memória.</h1>
+                    <p class="texto-grande">Antes de ser um ofício, a ourivesaria foi o cenário da minha vida. É por entre bancadas, ferramentas e gestos de cuidado que começo a contar quem sou.</p>
+                    <a class="convite-leitura" href="#origem">
+                        <svg class="icone" aria-hidden="true"><use href="#i-arrow-down"/></svg>
+                        <span>Uma história para conhecer devagar</span>
+                    </a>
+                </div>
+
+                <figure class="moldura">
+                    <div class="foto foto-inicio" role="img" aria-label="Mãos trabalhando em uma bancada de ourivesaria"></div>
+                    <figcaption class="legenda">O gesto de fazer. Fotografia editorial de referência, substituível.</figcaption>
+                </figure>
+            </div>
+
+            <hr class="linha">
+
+            <div class="nota-album">
+                <p class="t-italico">Família, matéria e memória.</p>
+                <span>OITO CAPÍTULOS</span>
+            </div>
+        </section>
+
+        <!-- 02 · A ORIGEM -->
+        <section class="secao borda-topo" id="origem">
+            <div class="secao-interna origem-grade">
+                <div class="origem-texto">
+                    <div class="abertura-capitulo">
+                        <p class="eyebrow">02 / Memórias de ourivesaria</p>
+                        <h2 class="t-secao">O começo foi um encontro.</h2>
+                    </div>
+
+                    <blockquote class="t-citacao">“Nasci e cresci nesse ambiente: meus pais se conheceram em um ateliê de ourivesaria.”</blockquote>
+
+                    <hr class="linha">
+
+                    <p class="texto">Quando penso na minha relação com a ourivesaria, não começo por uma peça pronta. Começo pelo encontro dos meus pais. O ateliê faz parte dessa origem: é o lugar que aproxima a história da minha família da matéria que se transforma pelas mãos. Contar isso é voltar ao que veio antes de mim e reconhecer o quanto esse começo está presente na maneira como olho para o ofício.</p>
+
+                    <p class="texto">Nascer e crescer nesse ambiente fez da ourivesaria algo próximo, cotidiano. A bancada não é, para mim, apenas uma superfície de trabalho; é também uma imagem de pertencimento. Entre ferramentas, metal e o tempo necessário para fazer, encontro uma linguagem para falar de cuidado. O que me toca não é só o brilho de uma joia, mas a atenção que existe em cada etapa, inclusive naquelas que ninguém vê.</p>
+
+                    <p class="texto">Este álbum é uma forma de reunir esses fios. Não quero contar apenas como uma peça ganha forma, mas por que esse universo ocupa um lugar tão íntimo em mim. Ao abrir estas páginas, compartilho um olhar pessoal: o de quem cresceu perto da ourivesaria e encontra nela uma maneira de pensar a família, a memória e os afetos que permanecem.</p>
+                </div>
+
+                <div class="origem-album">
+                    <figure class="moldura">
+                        <div class="foto foto-principal foto-origem-1" role="img" aria-label="Bancada de ourivesaria em preto e branco"></div>
+                        <figcaption class="legenda">Uma bancada, tantos começos. Estudo visual de arquivo em preto e branco.</figcaption>
+                    </figure>
+
+                    <div class="detalhe">
+                        <figure class="moldura">
+                            <div class="foto foto-origem-2" role="img" aria-label="Mãos que se encontram no fazer"></div>
+                            <figcaption class="legenda">Mãos que se encontram no fazer. Referência editorial.</figcaption>
+                        </figure>
+                    </div>
+
+                    <p class="nota">Imagens de referência, não fotografias reais da família. Espaços reservados para receber o meu acervo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 · CRESCER NO ATELIÊ -->
+        <section class="secao borda-topo" id="atelie">
+            <div class="secao-interna">
+                <div class="abertura-capitulo">
+                    <p class="eyebrow">03 / Memórias de ourivesaria</p>
+                    <h2 class="t-secao">Crescer no ateliê</h2>
+                    <p class="texto">Um lugar que guardo também pelos sentidos. Pequenos detalhes de um universo que faz parte de mim.</p>
+                </div>
+
+                <div class="trio">
+                    <article class="memoria">
+                        <div class="moldura"><div class="foto foto-atelie-1" role="img" aria-label="Metal e madeira da bancada"></div></div>
+                        <div class="memoria-texto">
+                            <p class="eyebrow">Metal, madeira e tempo</p>
+                            <h3>O cheiro da matéria</h3>
+                            <p class="texto-medio">Penso no metal e na madeira da bancada como parte da atmosfera em que cresci. Há memórias que chegam antes das palavras.</p>
+                        </div>
+                    </article>
+
+                    <article class="memoria">
+                        <div class="moldura"><div class="foto foto-atelie-2" role="img" aria-label="Lima sobre a bancada"></div></div>
+                        <div class="memoria-texto">
+                            <p class="eyebrow">Sons que desenham o dia</p>
+                            <h3>O ritmo da bancada</h3>
+                            <p class="texto-medio">Entre o som da lima e as pausas do trabalho, encontro uma imagem do ateliê: um lugar em que cada gesto tem seu próprio tempo.</p>
+                        </div>
+                    </article>
+
+                    <article class="memoria">
+                        <div class="moldura"><div class="foto foto-atelie-3" role="img" aria-label="Ferramentas de ourivesaria"></div></div>
+                        <div class="memoria-texto">
+                            <p class="eyebrow">Pequenos objetos, muito cuidado</p>
+                            <h3>A linguagem das ferramentas</h3>
+                            <p class="texto-medio">Limas, alicates e serras dizem algo sobre o fazer. Olhar para essas ferramentas é reconhecer a delicadeza que também existe na força.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="nota rodape-secao">Fotografias editoriais de referência · substituíveis pelo acervo pessoal.</p>
+            </div>
+        </section>
+
+        <!-- 04 · O OFÍCIO -->
+        <section class="oficio" id="oficio">
+            <div class="secao-interna">
+                <div class="abertura-capitulo">
+                    <p class="eyebrow">04 / O ofício</p>
+                    <h2 class="t-secao">Da ideia ao brilho.</h2>
+                    <p class="texto">Um percurso possível na ourivesaria. Cada peça pede seu tempo, e cada etapa pede presença.</p>
+                </div>
+
+                <div class="linha-do-tempo">
+                    <div class="passo">
+                        <div class="marco">01</div>
+                        <div class="passo-descricao">
+                            <div class="passo-nome">
+                                <svg class="icone" aria-hidden="true"><use href="#i-pencil"/></svg>
+                                <h3>Desenho</h3>
+                            </div>
+                            <p>O traço dá um primeiro lugar à ideia. Proporção, intenção e possibilidades.</p>
+                        </div>
+                    </div>
+
+                    <div class="passo">
+                        <div class="marco">02</div>
+                        <div class="passo-descricao">
+                            <div class="passo-nome">
+                                <svg class="icone" aria-hidden="true"><use href="#i-flame"/></svg>
+                                <h3>Fundição</h3>
+                            </div>
+                            <p>O calor transforma o metal. A matéria se prepara para uma nova forma.</p>
+                        </div>
+                    </div>
+
+                    <div class="passo">
+                        <div class="marco">03</div>
+                        <div class="passo-descricao">
+                            <div class="passo-nome">
+                                <svg class="icone" aria-hidden="true"><use href="#i-hammer"/></svg>
+                                <h3>Modelagem</h3>
+                            </div>
+                            <p>Volume e contorno surgem aos poucos, entre ferramentas e ajustes.</p>
+                        </div>
+                    </div>
+
+                    <div class="passo">
+                        <div class="marco">04</div>
+                        <div class="passo-descricao">
+                            <div class="passo-nome">
+                                <svg class="icone" aria-hidden="true"><use href="#i-gem"/></svg>
+                                <h3>Cravação</h3>
+                            </div>
+                            <p>Quando há pedras, cada uma encontra seu lugar com firmeza e delicadeza.</p>
+                        </div>
+                    </div>
+
+                    <div class="passo">
+                        <div class="marco">05</div>
+                        <div class="passo-descricao">
+                            <div class="passo-nome">
+                                <svg class="icone" aria-hidden="true"><use href="#i-sparkles"/></svg>
+                                <h3>Polimento</h3>
+                            </div>
+                            <p>A superfície revela seus detalhes. O brilho chega como um último cuidado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="nota rodape-secao">Uma leitura afetiva do fazer, não uma receita única: os caminhos e as técnicas variam de peça para peça.</p>
+            </div>
+        </section>
+
+        <!-- 05 · PEÇAS COM HISTÓRIA -->
+        <section class="secao" id="pecas">
+            <div class="secao-interna">
+                <div class="abertura-capitulo">
+                    <p class="eyebrow">05 / Memórias de ourivesaria</p>
+                    <h2 class="t-secao">Peças com história</h2>
+                    <p class="texto">Há formas que convidam a lembrar. Aqui, cada joia abre espaço para uma história que ainda pode ser contada.</p>
+                </div>
+
+                <div class="galeria">
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-1" role="img" aria-label="Anel de ouro"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">ANEL · OURO</p>
+                            <h3 class="t-item">Um círculo de cuidado</h3>
+                            <p class="texto-pequeno">A beleza de uma forma que não precisa de fim.</p>
+                        </div>
+                    </article>
+
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-2" role="img" aria-label="Pingente de ouro"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">PINGENTE · OURO</p>
+                            <h3 class="t-item">Perto do coração</h3>
+                            <p class="texto-pequeno">Um pequeno gesto, guardado junto ao corpo.</p>
+                        </div>
+                    </article>
+
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-3" role="img" aria-label="Brincos de ouro"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">BRINCOS · OURO</p>
+                            <h3 class="t-item">Dois pequenos brilhos</h3>
+                            <p class="texto-pequeno">A delicadeza que se revela nos detalhes.</p>
+                        </div>
+                    </article>
+
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-4" role="img" aria-label="Anel de prata"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">ANEL · PRATA</p>
+                            <h3 class="t-item">Marcas de um gesto</h3>
+                            <p class="texto-pequeno">A superfície também conta sobre o fazer.</p>
+                        </div>
+                    </article>
+
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-5" role="img" aria-label="Corrente de ouro"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">CORRENTE · OURO</p>
+                            <h3 class="t-item">Fio de permanência</h3>
+                            <p class="texto-pequeno">De elo em elo, uma ideia de continuidade.</p>
+                        </div>
+                    </article>
+
+                    <article class="peca">
+                        <div class="moldura"><div class="foto foto-peca-6" role="img" aria-label="Broche de ouro"></div></div>
+                        <div class="peca-legenda">
+                            <p class="peca-tipo">BROCHE · OURO</p>
+                            <h3 class="t-item">A forma do afeto</h3>
+                            <p class="texto-pequeno">Um fragmento de natureza para levar consigo.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="nota rodape-secao">Imagens e legendas ilustrativas, substituíveis. Estas peças não são apresentadas como parte do acervo da minha família.</p>
+            </div>
+        </section>
+
+        <!-- 06 · AS PESSOAS -->
+        <section class="secao borda-topo" id="pessoas">
+            <div class="secao-interna">
+                <div class="abertura-capitulo">
+                    <p class="eyebrow">06 / Memórias de ourivesaria</p>
+                    <h2 class="t-secao">Antes das peças, as pessoas.</h2>
+                    <p class="texto">O centro desta história não é o metal. São as pessoas que fazem desse universo um lugar de pertencimento.</p>
+                </div>
+
+                <div class="pessoas">
+                    <article class="pessoa">
+                        <div class="retrato retrato-1" role="img" aria-label="Retrato editorial de referência"></div>
+                        <div class="pessoa-texto">
+                            <h3>Minha mãe</h3>
+                            <p class="eyebrow">Identificação substituível</p>
+                            <p class="texto-medio">Sua história e a do meu pai se encontraram no ateliê. É desse encontro que começo a contar a minha.</p>
+                            <p class="nota-retrato">Retrato de referência · substituir</p>
+                        </div>
+                    </article>
+
+                    <article class="pessoa">
+                        <div class="retrato retrato-2" role="img" aria-label="Retrato editorial de referência"></div>
+                        <div class="pessoa-texto">
+                            <h3>Meu pai</h3>
+                            <p class="eyebrow">Identificação substituível</p>
+                            <p class="texto-medio">Um dos dois fios desse começo. Pensar na minha origem é também olhar para a sua relação com esse lugar.</p>
+                            <p class="nota-retrato">Retrato de referência · substituir</p>
+                        </div>
+                    </article>
+
+                    <article class="pessoa">
+                        <div class="retrato retrato-3" role="img" aria-label="Retrato editorial de referência"></div>
+                        <div class="pessoa-texto">
+                            <h3>Eu</h3>
+                            <p class="eyebrow">Identificação substituível</p>
+                            <p class="texto-medio">Reúno estas memórias para dar forma ao que esse universo significa para mim — e para compartilhar esse olhar.</p>
+                            <p class="nota-retrato">Retrato de referência · substituir</p>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="nota rodape-secao">Retratos editoriais anônimos, não fotografias reais da família. As imagens e identificações estão prontas para substituição.</p>
+            </div>
+        </section>
+
+        <!-- 07 · HOJE -->
+        <section class="hoje" id="hoje">
+            <span class="aliancas grande" aria-hidden="true"></span>
+            <p class="eyebrow">07 / Hoje</p>
+            <h2 class="t-secao">Carrego esse começo em tudo o que vejo.</h2>
+            <p class="texto-grande">Hoje, olhar para a ourivesaria é também olhar para a minha origem. Não preciso transformar toda lembrança em objeto para reconhecer seu valor. Algumas permanecem nos gestos, na atenção aos detalhes e no tempo que escolho dedicar ao que importa.</p>
+            <p class="texto">Este álbum é o meu jeito de cuidar dessa história. Um lugar para voltar, acrescentar memórias e manter por perto o encontro que deu início a tudo.</p>
+            <p class="fecho">O afeto também é matéria-prima.</p>
+        </section>
+
+    </main>
+
+    <!--footer inicio-->
+    <footer class="rodape-album">
+        <hr class="linha">
+        <div class="rodape-linha">
+            <div class="creditos">
+                <strong>Meu nome</strong>
+                <span>Um álbum pessoal, feito de memórias e afeto.</span>
+            </div>
+
+            <a class="marca" href="#topo">
+                <span class="aliancas" aria-hidden="true"></span>
+                <span class="marca-texto">
+                    <span class="marca-nome">Entre fios e afetos</span>
+                    <span class="marca-descricao">Um álbum de família</span>
+                </span>
+            </a>
+
+            <a class="botao-album claro" href="login.html">Sair</a>
+        </div>
+    </footer>
+    <!--footer fim-->
+
+</body>
+
+</html>
