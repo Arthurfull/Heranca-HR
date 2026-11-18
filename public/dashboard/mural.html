@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre fios e afetos | Mural de joias e histórias</title>
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body class="album" onload="validarSessao(), atualizarFeed()">
+
+    <!-- ícones (sprite) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+        <symbol id="i-image-plus" viewBox="0 0 24 24"><path d="M16 5h6"/><path d="M19 2v6"/><path d="M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/><circle cx="9" cy="9" r="2"/></symbol>
+    </svg>
+
+    <!--header inicio-->
+    <header class="cabecalho">
+        <a class="marca" href="../index.html">
+            <span class="aliancas" aria-hidden="true"></span>
+            <span class="marca-texto">
+                <span class="marca-nome">Entre fios e afetos</span>
+                <span class="marca-descricao">Um álbum de família</span>
+            </span>
+        </a>
+
+        <nav class="navegacao" aria-label="Seções do álbum">
+            <a href="../index.html#inicio">Início</a>
+            <a href="../index.html#origem">A origem</a>
+            <a href="../index.html#atelie">Crescer no ateliê</a>
+            <a href="../index.html#oficio">O ofício</a>
+            <a href="../index.html#pecas">Peças com história</a>
+            <a href="../index.html#pessoas">As pessoas</a>
+            <a href="../index.html#hoje">Hoje</a>
+            <a href="./mural.html" aria-current="page">Mural de histórias</a>
+            <span class="saudacao">Olá, <span id="b_usuario">usuário</span></span>
+            <a href="#" onclick="limparSessao(); return false;">Sair</a>
+        </nav>
+    </header>
+    <!--header fim-->
+
+    <div id="alerta">
+    </div>
+
+    <main>
+
+        <!-- 08 · ABERTURA DO MURAL -->
+        <section class="mural-abertura">
+            <p class="eyebrow">08 / Memórias de ourivesaria · O nosso mural</p>
+            <h1>Mural de joias e histórias</h1>
+
+            <div class="mural-convite">
+                <p>Compartilhe uma foto da sua joia favorita e conte a história que ela guarda. Aqui, cada peça ganha um lugar especial no mural.</p>
+                <a class="botao-album" href="#compartilhar">
+                    Compartilhar minha história
+                    <svg class="icone" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+                </a>
+            </div>
+
+            <div class="fio-nota">
+                <p>O valor de uma joia também está no que ela nos faz lembrar.</p>
+            </div>
+        </section>
+
+        <!-- ÁLBUM DA COMUNIDADE -->
+        <section class="mural-album">
+            <div class="temas">
+                <div class="temas-filtros">
+                    <button type="button" class="tema ativo">Todas as histórias</button>
+                    <button type="button" class="tema">Heranças de família</button>
+                    <button type="button" class="tema">Presentes de afeto</button>
+                    <button type="button" class="tema">Novos começos</button>
+                </div>
+                <p>Um álbum coletivo, memória por memória</p>
+            </div>
+
+            <div class="mural-fotos">
+                <div class="coluna-album">
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-1 h-380" role="img" aria-label="Fotografia ilustrativa: As pérolas da minha avó"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">HERANÇA DE FAMÍLIA</p>
+                            <h3>As pérolas da minha avó</h3>
+                            <p class="relato">Minha avó me deu este colar de pérolas no meu aniversário de 30 anos. Ele acompanhou casamentos, viagens e noites especiais. Sempre que o visto, sinto que ela está perto.</p>
+                            <div class="assinatura">
+                                <strong>Beatriz</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-2 h-300" role="img" aria-label="Fotografia ilustrativa: Um sim, todos os dias"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">AMOR EM PEQUENOS GESTOS</p>
+                            <h3>Um sim, todos os dias</h3>
+                            <p class="relato">Nossas alianças têm pequenas marcas de tantos anos juntos. Não quis polir nenhuma delas: cada risquinho também faz parte da nossa vida.</p>
+                            <div class="assinatura">
+                                <strong>Helena</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="coluna-album">
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-3 h-300" role="img" aria-label="Fotografia ilustrativa: Um encontro na feira"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">ENCONTROS INESPERADOS</p>
+                            <h3>Um encontro na feira</h3>
+                            <p class="relato">Encontrei este anel de prata em uma feira de antiguidades. Hoje ele é um lembrete de que as coisas feitas com cuidado podem durar por muito tempo.</p>
+                            <div class="assinatura">
+                                <strong>Rafael</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-4 h-360" role="img" aria-label="Fotografia ilustrativa: Meu primeiro recomeço"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">UMA CONQUISTA PESSOAL</p>
+                            <h3>Meu primeiro recomeço</h3>
+                            <p class="relato">Comprei estes brincos com o primeiro salário do meu ateliê. São pequenos, mas me lembram da coragem que tive para começar de novo.</p>
+                            <div class="assinatura">
+                                <strong>Luísa</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="coluna-album">
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-5 h-350" role="img" aria-label="Fotografia ilustrativa: Uma história que continua"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">NOVOS COMEÇOS</p>
+                            <h3>Uma história que continua</h3>
+                            <p class="relato">Esta pulseira foi feita com pedaços de uma joia antiga da família. Agora ela é uma maneira de levar a história comigo todos os dias.</p>
+                            <div class="assinatura">
+                                <strong>Clara</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="memoria-compartilhada">
+                        <div class="foto foto-mural-6 h-310" role="img" aria-label="Fotografia ilustrativa: Perto do coração"></div>
+                        <div class="historia-joia">
+                            <p class="tema-memoria">HERANÇA DE FAMÍLIA</p>
+                            <h3>Perto do coração</h3>
+                            <p class="relato">Dentro deste medalhão guardo uma foto da minha mãe. Era dela e, agora, vai comigo a cada viagem. Um jeito pequeno de nunca estar tão longe de casa.</p>
+                            <div class="assinatura">
+                                <strong>Teresa</strong>
+                                <span>Relato ilustrativo</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="nota-editorial">
+                <p>Fotografias e relatos ilustrativos, criados para inspirar as próximas memórias do mural.</p>
+                <p>A próxima história pode ser a sua.</p>
+            </div>
+        </section>
+
+        <!-- HISTÓRIAS PUBLICADAS (preenchidas pelo script: atualizarFeed) -->
+        <section class="mural-publicado">
+            <div class="titulo-bloco">
+                <p class="eyebrow">Mural da comunidade</p>
+                <h2>Histórias publicadas</h2>
+            </div>
+            <div class="div-results">
+                <div id="feed_container" class="feed-container">
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARTILHAR UMA MEMÓRIA -->
+        <section class="compartilhar" id="compartilhar">
+            <div class="compartilhar-convite">
+                <p class="eyebrow">Um espaço para a sua memória</p>
+                <h2>Sua joia também tem uma história.</h2>
+                <p>Pode ser uma herança, um presente ou uma descoberta. Não é sobre o valor da peça, mas sobre o afeto que ela carrega.</p>
+
+                <div class="como-participar">
+                    <div class="orientacao">
+                        <span class="etapa">01</span>
+                        <div>
+                            <h3>Escolha uma fotografia</h3>
+                            <p>Uma foto clara, com a joia como protagonista.</p>
+                        </div>
+                    </div>
+                    <div class="orientacao">
+                        <span class="etapa">02</span>
+                        <div>
+                            <h3>Dê voz à sua lembrança</h3>
+                            <p>Quem a deu? Que momento ela guarda?</p>
+                        </div>
+                    </div>
+                    <div class="orientacao">
+                        <span class="etapa">03</span>
+                        <div>
+                            <h3>Faça parte deste álbum</h3>
+                            <p>Compartilhe um pedacinho da sua história.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fio-afeto"></div>
+                <p class="fecho">O afeto também é matéria-prima.</p>
+            </div>
+
+            <div class="area-compartilhar">
+                <h2>Adicione sua joia ao mural</h2>
+
+                <form id="form_postagem" method="post" onsubmit="return publicar()">
+                    <div class="campo-mural">
+                        <span class="rotulo">Foto da sua joia</span>
+                        <label class="adicionar-foto" for="foto_joia">
+                            <svg class="icone" aria-hidden="true"><use href="#i-image-plus"/></svg>
+                            <strong>Adicionar foto</strong>
+                            <span>Arraste uma imagem ou escolha um arquivo · JPG ou PNG, até 10 MB</span>
+                            <input id="foto_joia" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
+                        </label>
+                    </div>
+
+                    <div class="campo-mural">
+                        <label for="titulo">Título da memória</label>
+                        <input name="titulo" id="titulo" maxlength="100" type="text" placeholder="Como você quer chamar esta joia?">
+                    </div>
+
+                    <div class="campo-mural">
+                        <label for="textarea_descricao">História da joia</label>
+                        <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5" placeholder="Conte quem a deu, onde a encontrou ou por que ela é especial para você…"></textarea>
+                        <p class="limite">Máximo de 250 caracteres</p>
+                    </div>
+
+                    <label class="consentimento">
+                        <input type="checkbox" id="consentimento" required>
+                        <span>A foto é minha e autorizo a publicação dela, do meu nome e da minha história neste mural.</span>
+                    </label>
+
+                    <button class="botao-album cheio">
+                        Publicar no mural
+                        <svg class="icone" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+                    </button>
+                </form>
+
+                <p class="cuidado">Compartilhe apenas fotos suas e evite dados pessoais no relato. Cuidamos deste espaço com o mesmo carinho que dedicamos às nossas memórias.</p>
+
+                <div id="div_aguardar" class="loading-div">
+                    <img src="../assets/circle-loading.gif" id="loading-gif">
+                </div>
+                <div id="div_erros_login"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!--footer inicio-->
+    <footer class="rodape-mural">
+        <div class="rodape-linha">
+            <a class="marca" href="../index.html">
+                <span class="aliancas" aria-hidden="true"></span>
+                <span class="marca-texto">
+                    <span class="marca-nome">Entre fios e afetos</span>
+                    <span class="marca-descricao">Um álbum de família</span>
+                </span>
+            </a>
+
+            <p class="t-italico">Família, matéria e memória.</p>
+
+            <a class="voltar-inicio" href="../index.html">
+                Voltar ao início
+                <svg class="icone" aria-hidden="true"><use href="#i-arrow-up"/></svg>
+            </a>
+        </div>
+
+        <div class="fecho-album">
+            <span>Entre fios e afetos · Um álbum que continua com você.</span>
+            <span>08 / MURAL DE JOIAS E HISTÓRIAS</span>
+        </div>
+    </footer>
+    <!--footer fim-->
+
+</body>
+
+</html>
+
+<script>
+    
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function publicar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var corpo = {
+            titulo: form_postagem.titulo.value,
+            descricao: form_postagem.descricao.value
+        }
+
+        fetch(`/avisos/publicar/${idUsuario}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.location = "/dashboard/mural.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+    }
+
+    function editar(idAviso) {
+        sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
+        console.log("cliquei em editar - " + idAviso);
+        window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
+        window.location = "/dashboard/edicao-aviso.html"
+
+    }
+
+    function deletar(idAviso) {
+        console.log("Criar função de apagar post escolhido - ID" + idAviso);
+        fetch(`/avisos/deletar/${idAviso}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/dashboard/mural.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function atualizarFeed() {
+        fetch("/avisos/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanID = document.createElement("span");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var divButtons = document.createElement("div");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+
+
+                        spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+                        spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
+                        spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+                        btnEditar.innerHTML = "Editar";
+                        btnDeletar.innerHTML = "Deletar";
+
+                        divPublicacao.className = "publicacao";
+                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
+                        spanNome.className = "publicacao-nome";
+                        spanTitulo.className = "publicacao-titulo";
+                        divDescricao.className = "publicacao-descricao";
+
+                        divButtons.className = "div-buttons"
+
+                        btnEditar.className = "publicacao-btn-editar"
+                        btnEditar.id = "btnEditar" + publicacao.idAviso;
+                        btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
+
+                        btnDeletar.className = "publicacao-btn-editar"
+                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+
+                        divPublicacao.appendChild(spanID);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divButtons);
+                        divButtons.appendChild(btnEditar);
+                        divButtons.appendChild(btnDeletar);
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+</script>
