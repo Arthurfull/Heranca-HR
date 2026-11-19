@@ -1646,6 +1646,7 @@ body.album {
 .fecho-album span:first-child { letter-spacing: 0.04em; color: var(--texto-suave); }
 .fecho-album span:last-child  { letter-spacing: 0.14em; color: var(--ouro-escuro); }
 
+
 /* =====================================================================
    FOTOGRAFIAS · caminhos das imagens exportadas do Figma
    Coloque os arquivos em public/assets/imgs/album/ com estes nomes.
