@@ -74,6 +74,13 @@ create table Verificacao (
 idCodigo int primary key auto_increment
 );
 
+create table Quiz (
+idResultado int primary key auto_increment,
+erros int,
+acertos int,  
+fkUsuario int,
+constraint fkQuizUsuario foreign key (fkUsuario) references Usuario(id) 
+);
 
 truncate table Usuario;
 
@@ -83,3 +90,8 @@ insert into Usuario (nome,email,senha,fkCodigo) values
 ('Arthur','Arthur@email.com','123456',654321);
 
 select * from Usuario;
+
+select * from quiz;
+
+update Usuario set fkCodigo = 654321 where id = 2;
+

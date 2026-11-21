@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body class="album" onload="listar()">
+<body class="album">
 
     <!-- ícones (sprite) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -125,26 +125,20 @@
     </div>
   </main>
 
-</body>
-
-</html>
-
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaUsuarioCadastrados = [];
+  // Único código de ativação aceito (precisa existir também na tabela Verificacao)
+  var CODIGO_ATIVACAO = "654321";
 
   function cadastrar() {
     // aguardar();
+    sumirMensagem(); // limpa a mensagem de uma tentativa anterior
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-   var idUsuarioVincular 
+    var codigoVar = codigo_input.value.trim();
 
     // Verificando se há algum campo em branco
     if (
@@ -154,45 +148,31 @@
       confirmacaoSenhaVar == "" ||
       codigoVar == ""
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "todos os campos em branco";
-
-      finalizarAguardar();
+      mostrarErro("Todos os campos devem ser preenchidos");
       return false;
-    }else if(senhaVar != confirmacaoSenhaVar){
-      mensagem_erro.innerHTML = "Senhas diferentes";
-    }else {
-      setInterval(sumirMensagem, 5000);
     }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaUsuarioCadastrados.length; i++) {
-      if (listaUsuarioCadastrados[i].idCodigo == codigoVar) {
-        idUsuarioVincular = listaUsuarioCadastrados[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
+    if (senhaVar != confirmacaoSenhaVar) {
+      mostrarErro("As senhas são diferentes");
+      return false;
     }
 
-    // Enviando o valor da nova input
+    // Só o código de ativação definido acima é aceito
+    if (codigoVar != CODIGO_ATIVACAO) {
+      mostrarErro("Código de ativação inválido");
+      return false;
+    }
+
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        codigoServer: codigoVar,
-        idUsuarioServer: idUsuarioVincular
+        codigoServer: codigoVar
       }),
     })
       .then(function (resposta) {
@@ -208,41 +188,54 @@
             window.location = "login.html";
           }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
+          limparCampos();
+          pararAguardar();
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+          // mostra a mensagem que o servidor devolveu (ex.: código inválido)
+          return resposta.text().then(function (texto) {
+            throw texto;
+          });
         }
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+      .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        mostrarErro(
+          typeof erro == "string" && erro != ""
+            ? erro
+            : "Houve um erro ao tentar realizar o cadastro!"
+        );
       });
 
     return false;
   }
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaUsuarioCadastrados.push(empresa);
+  function mostrarErro(texto) {
+    cardErro.style.display = "block";
+    mensagem_erro.innerHTML = texto;
+    pararAguardar();
+    setTimeout(sumirMensagem, 5000);
+  }
 
-            console.log("listaUsuarioCadastrados")
-            console.log(listaUsuarioCadastrados[0].idCodigo)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+  // Funções próprias, para não depender de nada que possa faltar no sessao.js
+  function limparCampos() {
+    codigo_input.value = "";
+    nome_input.value = "";
+    email_input.value = "";
+    senha_input.value = "";
+    confirmacao_senha_input.value = "";
+  }
+
+  function pararAguardar() {
+    // finalizarAguardar vem do sessao.js; só é chamada se existir
+    if (typeof finalizarAguardar == "function") {
+      finalizarAguardar();
+    }
   }
 
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
 </script>
+</body>
+
+</html>

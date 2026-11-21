@@ -1,6 +1,9 @@
 var usuarioModel = require("../models/usuarioModel");
 // var aquarioModel = require("../models/aquarioModel");
 
+// Único código de ativação aceito (precisa existir também na tabela Verificacao)
+var CODIGO_ATIVACAO = 654321;
+
 function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -9,11 +12,10 @@ function autenticar(req, res) {
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");}
+        res.status(400).send("Sua senha está indefinida!");
     // } else if(codigo != 654321){
     //     res.status(400).send("Código de ativação incorreto"); 
-    // }
-     else{
+    } else {
 
         usuarioModel.autenticar(email, senha)
             .then(
@@ -23,12 +25,13 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-                        res.json({id: resultadoAutenticar[0].id,
-                        email: resultadoAutenticar[0].email,
-                        nome: resultadoAutenticar[0].nome,
-                        senha: resultadoAutenticar[0].senha
-
-                    })}else if (resultadoAutenticar.length == 0) {
+                        res.json({
+                            id: resultadoAutenticar[0].id,
+                            email: resultadoAutenticar[0].email,
+                            nome: resultadoAutenticar[0].nome,
+                            senha: resultadoAutenticar[0].senha
+                        })
+                    } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
                         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -50,6 +53,8 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    // Number() garante que só um número entra no SQL (o código vai sem aspas)
+    var codigo = Number(req.body.codigoServer);
     // var fkEmpresa = req.body.idEmpresaVincularServer;
 
     // Faça as validações dos valores
@@ -59,10 +64,14 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (!Number.isInteger(codigo) || codigo <= 0) {
+        res.status(400).send("Seu código de ativação está inválido ou undefined!");
+    } else if (codigo != CODIGO_ATIVACAO) {
+        res.status(400).send("Código de ativação inválido");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha)
+        usuarioModel.cadastrar(nome, email, senha, codigo)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -74,6 +83,13 @@ function cadastrar(req, res) {
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
                         erro.sqlMessage
                     );
+
+                    // código que não existe na tabela Verificacao (chave estrangeira)
+                    if (erro.code == "ER_NO_REFERENCED_ROW_2") {
+                        res.status(400).send("Código de ativação inválido!");
+                        return;
+                    }
+
                     res.status(500).json(erro.sqlMessage);
                 }
             );
