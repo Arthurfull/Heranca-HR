@@ -2,307 +2,254 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>Quiz | Dashboard</title>
 
-    
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
     <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- scripts do Chart.js - 2022-1 -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/dashboards.css">
 </head>
-
-<!-- <body onload=" atualizarFeed()"> -->
 
 <body>
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
+    <div class="header-left">
+        <h1>Quiz</h1>
+        <div class="hello"><h3>Olá, <span id="b_usuario">usuário</span>!</h3></div>
+        <div class="btn-nav-white"><a href="../quiz.html"><h3>Fazer o quiz</h3></a></div>
+        <div class="btn-nav"><h3>Meu desempenho</h3></div>
+        <div class="btn-logout" onclick="limparSessao()"><h3>Sair</h3></div>
+    </div>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
+    <div class="dash">
+        <h2>Meu desempenho</h2>
+        <p>Acompanhe seus acertos e erros a cada tentativa.</p>
 
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários e Terrários</h3>
-                </a>
-            </div>
+        <div id="aviso" hidden></div>
 
-            <div class="btn-nav">
+        <div id="conteudo" hidden>
+            <section class="kpis">
+                <article class="kpi">
+                    <span class="kpi-titulo">Aproveitamento</span>
+                    <span class="kpi-sub">última tentativa · acertos sobre o total de questões</span>
+                    <strong class="kpi-valor" id="kpiAproveitamento">0%</strong>
+                    <div class="barra"><div id="barraAproveitamento"></div></div>
+                    <span class="kpi-detalhe" id="detalheAproveitamento"></span>
+                </article>
 
-                <h3>Gráficos</h3>
+                <article class="kpi" id="cardMeta">
+                    <span class="kpi-titulo">Meta de acertos</span>
+                    <span class="kpi-sub" id="subMeta"></span>
+                    <strong class="kpi-valor" id="kpiMeta">0 / 0</strong>
+                    <div class="barra"><div id="barraMeta"></div></div>
+                    <span class="kpi-detalhe" id="detalheMeta"></span>
+                </article>
 
-            </div>
+                <article class="kpi">
+                    <span class="kpi-titulo">Tentativas</span>
+                    <span class="kpi-sub">quizzes finalizados</span>
+                    <strong class="kpi-valor" id="kpiTentativas">0</strong>
+                    <span class="kpi-detalhe" id="detalheTentativas"></span>
+                </article>
+            </section>
 
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
-        </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
+            <section class="graficos" style="margin-top: 16px;">
+                <div class="grafico">
+                    <h3>Acertos x Erros</h3>
+                    <div class="grafico-box"><canvas id="graficoRosca"></canvas></div>
+                </div>
+                <div class="grafico">
+                    <h3>Evolução dos acertos</h3>
+                    <div class="grafico-box"><canvas id="graficoLinha"></canvas></div>
+                </div>
+            </section>
         </div>
     </div>
 
+<script>
+    // Meta: percentual de acertos que você quer atingir em uma tentativa.
+    // Para usar um número fixo, troque o cálculo de "meta" em montarDashboard().
+    var META_PERCENTUAL = 80;
 
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    window.onload = carregarDashboard;
+
+    function carregarDashboard() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        if (idUsuario == undefined) {
+            window.location = "../login.html";
+            return;
+        }
+
+        fetch(`/resultados/usuario/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resultados) {
+                    montarDashboard(resultados);
+                });
+            } else {
+                mostrarAviso("Não foi possível carregar seus resultados.");
+            }
+        }).catch(function (erro) {
+            console.error(`Erro ao obter os dados: ${erro.message}`);
+            mostrarAviso("Não foi possível carregar seus resultados.");
+        });
+    }
+
+    function mostrarAviso(texto, comLink) {
+        var aviso = document.getElementById("aviso");
+        aviso.innerHTML = texto + (comLink ? ' <a href="../quiz.html">Fazer o quiz agora</a>' : "");
+        aviso.hidden = false;
+    }
+
+    function montarDashboard(resultados) {
+        if (resultados.length == 0) {
+            mostrarAviso("Você ainda não fez o quiz.", true);
+            return;
+        }
+
+        var totalAcertos = 0, totalErros = 0, melhor = resultados[0];
+
+        resultados.forEach(function (r) {
+            totalAcertos += Number(r.acertos);
+            totalErros += Number(r.erros);
+            if (r.acertos > melhor.acertos) melhor = r;
+        });
+
+        var totalQuestoes = totalAcertos + totalErros;
+        var aproveitamento = totalQuestoes > 0 ? Math.round(totalAcertos / totalQuestoes * 100) : 0;
+        var questoesMelhor = Number(melhor.acertos) + Number(melhor.erros);
+        var meta = Math.ceil(questoesMelhor * META_PERCENTUAL / 100);
+        var ultima = resultados[resultados.length - 1];
+
+        // KPI 1 - aproveitamento da última tentativa, com as variáveis do quiz.html
+        // (guardadas na sessão). Se não houver, usa a última tentativa do banco.
+        var certas = sessionStorage.CERTAS != undefined ? Number(sessionStorage.CERTAS) : Number(ultima.acertos);
+        var erradas = sessionStorage.ERRADAS != undefined ? Number(sessionStorage.ERRADAS) : Number(ultima.erros);
+        var quantidadeDeQuestoes = sessionStorage.QTD_QUESTOES != undefined ? Number(sessionStorage.QTD_QUESTOES) : certas + erradas;
+        var porcentagemUltima = quantidadeDeQuestoes > 0 ? Math.round(certas / quantidadeDeQuestoes * 100) : 0;
+
+        kpiAproveitamento.innerHTML = porcentagemUltima + "%";
+        barraAproveitamento.style.width = porcentagemUltima + "%";
+        detalheAproveitamento.innerHTML = `${certas} acertos e ${erradas} erros em ${quantidadeDeQuestoes} questões`;
+
+        // KPI 2 - meta
+        var progresso = meta > 0 ? Math.min(100, Math.round(melhor.acertos / meta * 100)) : 0;
+        subMeta.innerHTML = `melhor tentativa · meta de ${META_PERCENTUAL}% das questões`;
+        kpiMeta.innerHTML = `${melhor.acertos} / ${meta}`;
+        barraMeta.style.width = progresso + "%";
+
+        if (melhor.acertos >= meta) {
+            cardMeta.classList.add("atingida");
+            detalheMeta.innerHTML = "Meta batida! 🎯";
+        } else {
+            detalheMeta.innerHTML = `Faltam ${meta - melhor.acertos} acertos para a meta`;
+        }
+
+        // KPI 3 - tentativas
+        kpiTentativas.innerHTML = resultados.length;
+        detalheTentativas.innerHTML = `Última: ${ultima.acertos} acertos e ${ultima.erros} erros`;
+
+        conteudo.hidden = false;
+
+        Chart.defaults.color = "#f3e9d8";
+        Chart.defaults.font.family = '"Exo 2", sans-serif';
+
+        plotarRosca(totalAcertos, totalErros, aproveitamento);
+        plotarLinha(resultados, meta);
+    }
+
+    function plotarRosca(totalAcertos, totalErros, aproveitamento) {
+        // escreve a porcentagem no centro da rosca
+        var textoCentro = {
+            id: "textoCentro",
+            afterDraw: function (chart) {
+                var ctx = chart.ctx, a = chart.chartArea;
+                var x = (a.left + a.right) / 2, y = (a.top + a.bottom) / 2;
+                ctx.save();
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = "#f3e9d8";
+                ctx.font = '700 32px "Exo 2", sans-serif';
+                ctx.fillText(aproveitamento + "%", x, y - 8);
+                ctx.fillStyle = "#d9bd8a";
+                ctx.font = '400 13px "Exo 2", sans-serif';
+                ctx.fillText("geral", x, y + 18);
+                ctx.restore();
+            }
+        };
+
+        new Chart(document.getElementById("graficoRosca"), {
+            type: "doughnut",
+            data: {
+                labels: [`Acertos (${totalAcertos})`, `Erros (${totalErros})`],
+                datasets: [{
+                    data: [totalAcertos, totalErros],
+                    backgroundColor: ["#7fc99a", "#d96b5f"],
+                    borderColor: "#2b2118",
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutout: "68%",
+                plugins: { legend: { position: "bottom" } }
+            },
+            plugins: [textoCentro]
+        });
+    }
+
+    function plotarLinha(resultados, meta) {
+        var labels = resultados.map(function (r, i) { return `${i + 1}ª`; });
+        var acertos = resultados.map(function (r) { return Number(r.acertos); });
+        var maiorTotal = Math.max.apply(null, resultados.map(function (r) {
+            return Number(r.acertos) + Number(r.erros);
+        }));
+
+        new Chart(document.getElementById("graficoLinha"), {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Acertos",
+                        data: acertos,
+                        borderColor: "#d9bd8a",
+                        backgroundColor: "rgba(217, 189, 138, 0.2)",
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: "#d9bd8a"
+                    },
+                    {
+                        label: `Meta (${meta})`,
+                        data: labels.map(function () { return meta; }),
+                        borderColor: "#7fc99a",
+                        borderDash: [6, 6],
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: "Tentativas" }, grid: { color: "rgba(243, 233, 216, 0.1)" } },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: Math.max(meta, maiorTotal),
+                        ticks: { precision: 0 },
+                        title: { display: true, text: "Acertos" },
+                        grid: { color: "rgba(243, 233, 216, 0.1)" }
+                    }
+                },
+                plugins: { legend: { position: "bottom" } }
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
-
-<script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    let proximaAtualizacao;
-
-    window.onload = exibirAquariosDoUsuario();
-
-    function exibirAquariosDoUsuario() {
-        var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        aquarios.forEach(item => {
-            document.getElementById("btnAquario").innerHTML += `
-            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-            `
-
-            document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.id}" class="display-none">
-                    <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas${item.id}"></canvas>
-                    </div>
-                    <div class="label-captura">
-                        <p id="avisoCaptura${item.id}" style="color: white"></p>
-                    </div>
-                </div>
-            `
-
-            obterDadosGrafico(item.id)
-        });
-
-        if (aquarios.length > 0) {
-            exibirAquario(aquarios[0].id)
-        }
-    }
-
-    function alterarTitulo(idAquario) {
-        var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-        tituloAquario.innerHTML = "Últimas medidas do <span style='color: #e6005a'>" + descricao + "</span>"
-    }
-
-    function exibirAquario(idAquario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idAquario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idAquario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
-
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idAquario) {
-
-        alterarTitulo(idAquario)
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, idAquario);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idAquario) {
-
-        console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.temperatura);
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idAquario}`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idAquario, dados, myChart) {
-
-
-
-        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    obterdados(idAquario);
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
-</script>
