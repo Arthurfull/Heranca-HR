@@ -18,7 +18,7 @@
     <div class="header-left">
         <h1>Quiz</h1>
         <div class="hello"><h3>Olá, <span id="b_usuario">usuário</span>!</h3></div>
-        <div class="btn-nav-white"><a href="../quiz.html"><h3>Fazer o quiz</h3></a></div>
+        <div class="btn-nav-white"><a href="../quizv2.html"><h3>Fazer o quiz</h3></a></div>
         <div class="btn-nav"><h3>Meu desempenho</h3></div>
         <div class="btn-logout" onclick="limparSessao()"><h3>Sair</h3></div>
     </div>
@@ -84,7 +84,7 @@
             return;
         }
 
-        fetch(`/resultados/usuario/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboard/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resultados) {
                     montarDashboard(resultados);

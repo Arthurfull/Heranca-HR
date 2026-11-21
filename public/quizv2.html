@@ -73,41 +73,102 @@
 <script>
     const listaDeQuestoes = [
 
+       {
+            pergunta: "Qual é a principal atividade de um ourives na joalheria?",
+            alternativaA: "Lapidar apenas pedras brutas extraídas de minas, sem trabalhar com metais.",
+            alternativaB: "Projetar, moldar, soldar e dar acabamento a peças feitas de metais nobres (como ouro, prata e platina), muitas vezes cravando gemas.",
+            alternativaC: "Avaliar o preço de mercado de relógios antigos e moedas raras em leilões.",
+            alternativaD: "Extrair minérios do solo usando máquinas pesadas de escavação.",
+            alternativaCorreta: "alternativaB"
+        },
         {
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
+            pergunta: "Quando você vê uma joia marcada como 18k ou 750, o que isso indica?",
+            alternativaA: "Que a peça pesa exatamente 18 quilates.",
+            alternativaB: "Que o ouro foi banhado 18 vezes para não descascar.",
+            alternativaC: "Que a liga metálica tem 75% de ouro puro (18 de 24 partes) e 25% de outros metais para dar resistência.",
+            alternativaD: "Que a joia foi fabricada no ano de 1975.",
             alternativaCorreta: "alternativaC"
         },
-
         {
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
-            alternativaCorreta: "alternativaD"
+            pergunta: "Muitas peças de ouro branco passam por um acabamento final chamado banho de ródio. Para que serve esse processo?",
+            alternativaA: "Para transformar o ouro branco em prata de lei.",
+            alternativaB: "Para dar uma camada protetora clara, brilhante e resistente a riscos superficiais.",
+            alternativaC: "Para diminuir o peso da joia e torná-la mais barata.",
+            alternativaD: "Para impedir que o metal derreta em altas temperaturas.",
+            alternativaCorreta: "alternativaB"
         },
-
         {
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
+            pergunta: "Ao dobrar, martelar ou laminar um fio de ouro ou prata, o metal fica duro e pode trincar. O que o recozimento faz?",
+            alternativaA: "Congela a peça em nitrogênio líquido por uma hora.",
+            alternativaB: "Aquece o metal até uma temperatura específica e o resfria para reorganizar sua estrutura interna e devolvê-lo ao estado maleável.",
+            alternativaC: "Mergulha a peça em ácido sulfúrico até dissolver a camada externa.",
+            alternativaD: "Lixa toda a superfície com uma lima grossa.",
+            alternativaCorreta: "alternativaB"
         },
-
         {
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
-        }
+            pergunta: "Por que a prata usada em joias costuma ser identificada como 925 (prata de lei)?",
+            alternativaA: "Porque ela contém 92,5% de prata pura e 7,5% de outros metais, garantindo mais firmeza à peça.",
+            alternativaB: "Porque ela só pode ser vendida a partir de 925 reais o grama.",
+            alternativaC: "Porque ela foi fundida a 925 graus Celsius.",
+            alternativaD: "Porque ela nunca escurece com o passar dos anos.",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Quando uma joia leva um diamante, safira ou outra gema, o que é a cravação?",
+            alternativaA: "O processo de colar a pedra com cola instantânea transparente.",
+            alternativaB: "A técnica de prender a pedra com segurança usando o próprio metal da joia (garras, canaletas, caixa etc.), sem depender de cola.",
+            alternativaC: "A medição do tamanho da pedra usando um paquímetro digital.",
+            alternativaD: "A limpeza ultrassônica feita antes de entregar a joia ao cliente.",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Na bancada do ourives, para que serve a serra de ourives (ou arco de serra)?",
+            alternativaA: "Para derreter o metal em altas temperaturas antes de colocá-lo na forma.",
+            alternativaB: "Para fazer cortes precisos e detalhados em chapas e fios de metal usando lâminas bem finas.",
+            alternativaC: "Para medir o aro de um anel com precisão milimétrica.",
+            alternativaD: "Para dar brilho espelhado usando pasta abrasiva.",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "O que é uma laminadora na ourivesaria?",
+            alternativaA: "Uma máquina com rolos de aço que achata ou estica o metal para transformá-lo em chapas ou fios mais finos.",
+            alternativaB: "Um forno elétrico usado para fundir grandes quantidades de ouro.",
+            alternativaC: "Um instrumento usado apenas para testar se a pedra é verdadeira.",
+            alternativaD: "Uma escova rotativa para limpar correntes finas.",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Por que o ourives usa solda de ouro (com teor compatível ao da peça) em vez de solda comum de eletrônica?",
+            alternativaA: "Porque a solda de eletrônica deixa a joia com cor verde-azulada.",
+            alternativaB: "Porque a solda específica de joalheria mantém a cor, a pureza e a resistência da peça, fundindo-se em temperatura adequada sem derreter toda a joia.",
+            alternativaC: "Porque a solda comum não gruda em nenhum tipo de metal.",
+            alternativaD: "Porque a solda de ouro serve apenas para colar pedras preciosas.",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "O que é o polimento na etapa final de fabricação de uma joia?",
+            alternativaA: "O processo de derreter a peça novamente para corrigir o tamanho.",
+            alternativaB: "A remoção de riscos e marcas de ferramentas usando lixas finas, borrachas abrasivas e pastas de polir até alcançar o acabamento desejado.",
+            alternativaC: "A gravação do nome do cliente por dentro da aliança com laser.",
+            alternativaD: "A transformação de prata em ouro por meio de reação química.",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "O que significa dizer que uma joia é 'oca' ou 'maciça'?",
+            alternativaA: "Maciça indica que a estrutura tem preenchimento interno contínuo de metal; oca indica que há espaço vazio por dentro para reduzir peso e custo.",
+            alternativaB: "Maciça significa que a joia não tem nenhuma pedra; oca significa que ela tem pedras vazadas.",
+            alternativaC: "Maciça é um termo usado apenas para colares; oca é usado apenas para brincos.",
+            alternativaD: "Maciça indica que o metal é falso; oca indica que o metal é puro.",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "O que é a 'decapagem' (ou branqueamento) após soldar ou aquecer uma peça na ourivesaria?",
+            alternativaA: "O banho em solução própria para remover óxidos e crostas escuras formadas pelo calor durante a solda ou recozimento.",
+            alternativaB: "O ato de cortar a joia ao meio para verificar se há impurezas.",
+            alternativaC: "A aplicação de verniz transparente para evitar oxidação futura.",
+            alternativaD: "O ajuste do tamanho do anel usando um martelo de madeira.",
+            alternativaCorreta: "alternativaA"
+        },
 
     ]
 
