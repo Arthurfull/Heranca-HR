@@ -35,6 +35,7 @@
 
         <!-- capa com fotografia -->
         <div class="acesso-capa">
+          <img src="./assets/imgs/Familia.jpeg" alt="">
             <a class="marca" href="index.html">
                 <span class="aliancas" aria-hidden="true"></span>
                 <span class="marca-texto">
@@ -241,6 +242,21 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+
+
+    document.querySelectorAll(".btn-olho").forEach(function (botao) {
+    var campo = botao.parentElement.querySelector("input");
+
+    botao.style.cursor = "pointer";
+    botao.style.pointerEvents = "auto"; // caso o CSS esteja bloqueando o clique
+
+    botao.addEventListener("click", function () {
+      var visivel = campo.type == "text";
+      campo.type = visivel ? "password" : "text";
+      botao.querySelector("use").setAttribute("href", visivel ? "#i-eye-off" : "#i-eye");
+    });
+  });
+
 </script>
 </body>
 
