@@ -537,6 +537,7 @@ body.album {
   left: 48px;
   padding: 12px;
   background: var(--marrom);
+  opacity: 70%;
 }
 
 .acesso-capa .marca-nome { color: var(--creme); }
@@ -554,6 +555,7 @@ body.album {
   background: var(--marrom);
   border: 0.7px solid var(--ouro);
   border-radius: 4px;
+  opacity: 70%;
 }
 
 .convite-capa h2 {
