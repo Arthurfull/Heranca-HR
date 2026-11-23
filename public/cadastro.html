@@ -155,6 +155,12 @@
     if (senhaVar != confirmacaoSenhaVar) {
       mostrarErro("As senhas são diferentes");
       return false;
+    }else if(senhaVar == senhaVar.toLowerCase()){
+      mostrarErro("As senhas devem conter letras maiusculas");
+      return false;
+    }else if(!/[@#$%&!*\/_\-+?~]/.test(senhaVar)){
+      mostrarErro("A senha deve conter caracteres especiais");
+      return false;    
     }
 
     // Só o código de ativação definido acima é aceito
