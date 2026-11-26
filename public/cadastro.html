@@ -17,7 +17,6 @@
 
 <body class="album">
 
-    <!-- ícones (sprite) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
         <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol>
@@ -33,7 +32,7 @@
 
   <main class="acesso">
 
-        <!-- capa com fotografia -->
+
         <div class="acesso-capa">
           <img src="./assets/imgs/Familia.jpeg" alt="">
             <a class="marca" href="index.html">
@@ -52,7 +51,7 @@
             </div>
         </div>
 
-    <!-- área de cadastro -->
+
     <div class="acesso-painel">
       <div class="boas-vindas">
         <p class="eyebrow">Álbum pessoal · Crie seu acesso</p>
@@ -61,10 +60,7 @@
       </div>
 
       <div class="form-album">
-        <!--
-          Para inserir mais um campo, copie um dos blocos "campo-album" abaixo.
-          Assim que inserir vá para o script no final do arquivo.
-        -->
+
         <div class="campo-album">
           <label for="codigo_input">Código de ativação</label>
           <div class="entrada">
@@ -128,12 +124,11 @@
 
 <script>
 
-  // Único código de ativação aceito (precisa existir também na tabela Verificacao)
   var CODIGO_ATIVACAO = "654321";
 
   function cadastrar() {
-    // aguardar();
-    sumirMensagem(); // limpa a mensagem de uma tentativa anterior
+
+    sumirMensagem();
 
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
@@ -141,7 +136,6 @@
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value.trim();  
 
-    // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
@@ -164,7 +158,7 @@
       return false;    
     }
 
-    // Só o código de ativação definido acima é aceito
+
     if (codigoVar != CODIGO_ATIVACAO) {
       mostrarErro("Código de ativação inválido");
       return false;
@@ -198,7 +192,7 @@
           limparCampos();
           pararAguardar();
         } else {
-          // mostra a mensagem que o servidor devolveu (ex.: código inválido)
+
           return resposta.text().then(function (texto) {
             throw texto;
           });
@@ -223,7 +217,7 @@
     setTimeout(sumirMensagem, 5000);
   }
 
-  // Funções próprias, para não depender de nada que possa faltar no sessao.js
+
   function limparCampos() {
     codigo_input.value = "";
     nome_input.value = "";
@@ -233,7 +227,7 @@
   }
 
   function pararAguardar() {
-    // finalizarAguardar vem do sessao.js; só é chamada se existir
+
     if (typeof finalizarAguardar == "function") {
       finalizarAguardar();
     }
@@ -248,7 +242,7 @@
     var campo = botao.parentElement.querySelector("input");
 
     botao.style.cursor = "pointer";
-    botao.style.pointerEvents = "auto"; // caso o CSS esteja bloqueando o clique
+    botao.style.pointerEvents = "auto";
 
     botao.addEventListener("click", function () {
       var visivel = campo.type == "text";
