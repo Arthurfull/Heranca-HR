@@ -139,7 +139,7 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value.trim();
+    var codigoVar = codigo_input.value.trim();  
 
     // Verificando se há algum campo em branco
     if (
@@ -172,7 +172,7 @@
 
     fetch("/usuarios/cadastrar", {
       method: "POST",
-      headers: {
+      headers: {     
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
